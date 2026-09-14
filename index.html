@@ -181,8 +181,8 @@ function records(){try{return JSON.parse(localStorage.getItem("datingRecords")||
 function saveRecords(v){localStorage.setItem("datingRecords",JSON.stringify(v))}
 function showFormStep(n){
  currentStep=Math.max(1,Math.min(5,n));
- $(".form-step").forEach(x=>x.classList.toggle("active",+x.dataset.step===currentStep));
- $(".step-dot").forEach((x,i)=>{x.classList.toggle("active",i+1===currentStep);x.classList.toggle("done",i+1<currentStep)});
+ $$(".form-step").forEach(x=>x.classList.toggle("active",+x.dataset.step===currentStep));
+ $$(".step-dot").forEach((x,i)=>{x.classList.toggle("active",i+1===currentStep);x.classList.toggle("done",i+1<currentStep)});
  $("#backBtn").classList.toggle("hidden",currentStep===1);$("#nextBtn").classList.toggle("hidden",currentStep===5);$("#saveBtn").classList.toggle("hidden",currentStep!==5);
  $(".result").classList.toggle("hidden",currentStep<3);window.scrollTo({top:0,behavior:"smooth"});
 }
