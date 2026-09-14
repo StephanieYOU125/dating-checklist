@@ -117,6 +117,15 @@
 
   <section class="view" id="savedView">
     <header class="hero"><div class="eyebrow">YOUR RECORDS</div><h1>已儲存</h1><p>看長期一致的行為，不因單次心動或失望下結論。</p></header>
+    <section class="card" data-check-group="saved-review">
+      <h2>回顧紀錄檢核</h2>
+      <p class="sub">先確認判斷依據，再閱讀個別紀錄。</p>
+      <label class="option green"><input type="checkbox" data-check-key="saved-pattern"><span>我回看的是多次行為，而不是單次印象</span></label>
+      <label class="option green"><input type="checkbox" data-check-key="saved-consistency"><span>對方的說法與行動大致一致</span></label>
+      <label class="option green"><input type="checkbox" data-check-key="saved-mutual"><span>雙方都有主動與投入</span></label>
+      <label class="option red"><input type="checkbox" data-check-key="saved-safety"><span>我沒有用高分或其他優點合理化重大紅旗</span></label>
+      <div class="value-summary" data-check-progress>0 / 4 已完成</div>
+    </section>
     <div id="savedList"></div>
   </section>
 
@@ -154,7 +163,13 @@
 
     <section class="card">
       <h2>每週只檢查四件事</h2>
-      <ul class="check-list"><li>這週我大多感到安心，還是經常緊繃？</li><li>我能表達不同意見和拒絕嗎？</li><li>我們是否都在投入，而不是只有一方努力？</li><li>這段關係讓我的生活更完整，還是逐漸失去自己？</li></ul>
+      <div data-check-group="relationship-weekly">
+        <label class="option green"><input type="checkbox" data-check-key="relationship-calm"><span>這週我大多感到安心，而不是經常緊繃</span></label>
+        <label class="option green"><input type="checkbox" data-check-key="relationship-boundary"><span>我能表達不同意見和拒絕</span></label>
+        <label class="option green"><input type="checkbox" data-check-key="relationship-mutual"><span>我們雙方都有投入，而不是只有一方努力</span></label>
+        <label class="option green"><input type="checkbox" data-check-key="relationship-self"><span>我仍保有自己的生活、朋友與目標</span></label>
+        <div class="value-summary" data-check-progress>0 / 4 已完成</div>
+      </div>
       <div class="field" style="margin-top:14px"><label for="relationshipNextStep">我現在唯一要做的小步驟</label><textarea id="relationshipNextStep" maxlength="500" placeholder="例如：下週主動約一次咖啡，只觀察我們能不能自在聊天。"></textarea></div>
       <p class="sub" style="margin-top:8px">這段文字會自動保存在你的手機。</p>
     </section>
@@ -180,6 +195,15 @@
       <h3>價值觀怎麼看？</h3>
       <p class="sub">重點不是六項都完全相同，而是重大方向能否協調。尤其是忠誠、婚育、金錢、生活地點和個人界線，若屬於彼此不能妥協的核心需求，就不應只靠感情忽略。</p>
       <div class="danger-box"><strong>安全優先：</strong>暴力、威脅、強迫、跟蹤、重大欺騙或反覆控制界線，都不應被總分抵銷。若感到危險，優先離開現場並向可信任的人或當地緊急服務求助。</div>
+    </section>
+    <section class="card" data-check-group="guide-ready">
+      <h2>使用前快速檢核</h2>
+      <p class="sub">四項都記得，再開始做判斷。</p>
+      <label class="option green"><input type="checkbox" data-check-key="guide-type"><span>我已選擇正確的互動性質</span></label>
+      <label class="option green"><input type="checkbox" data-check-key="guide-facts"><span>我記錄具體行為，不只寫感覺或猜測</span></label>
+      <label class="option red"><input type="checkbox" data-check-key="guide-safety"><span>我會先看安全，再看分數</span></label>
+      <label class="option green"><input type="checkbox" data-check-key="guide-small-step"><span>我只決定下一個小步驟，不急著決定一輩子</span></label>
+      <div class="value-summary" data-check-progress>0 / 4 已完成</div>
     </section>
     <section class="card install">
       <h2>加入 iPhone 主畫面</h2>
@@ -309,6 +333,22 @@ window.deleteRecord=id=>{if(!confirm("確定刪除這筆紀錄嗎？刪除後無
 function showView(id){$$(".view").forEach(x=>x.classList.toggle("active",x.id===id));$$(".tab").forEach(x=>x.classList.toggle("active",x.dataset.view===id));if(id==="savedView")renderSaved();window.scrollTo({top:0,behavior:"smooth"})}
 $$(".tab").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
 $$(".guide-choice").forEach(b=>b.addEventListener("click",()=>{$$(".guide-choice").forEach(x=>x.classList.toggle("active",x===b));const g=fearGuides[b.dataset.fear];$("#fearOutput").innerHTML="<strong>"+g.title+"</strong><br>"+g.text}));
+const tabCheckStorageKey="datingTabChecksV1";
+function getTabChecks(){try{return JSON.parse(localStorage.getItem(tabCheckStorageKey)||"{}")}catch{return{}}}
+function updateTabCheckProgress(){
+ $("[data-check-group]").forEach(group=>{
+  const boxes=[...group.querySelectorAll("[data-check-key]")],done=boxes.filter(x=>x.checked).length,out=group.querySelector("[data-check-progress]");
+  if(out)out.textContent=done+" / "+boxes.length+" 已完成";
+ });
+}
+const savedTabChecks=getTabChecks();
+$("[data-check-key]").forEach(box=>{
+ box.checked=!!savedTabChecks[box.dataset.checkKey];
+ box.addEventListener("change",()=>{
+  const state=getTabChecks();state[box.dataset.checkKey]=box.checked;localStorage.setItem(tabCheckStorageKey,JSON.stringify(state));updateTabCheckProgress();
+ });
+});
+updateTabCheckProgress();
 $("#relationshipNextStep").value=localStorage.getItem("relationshipNextStep")||"";
 $("#relationshipNextStep").addEventListener("input",e=>localStorage.setItem("relationshipNextStep",e.target.value));
 $("#date").value=new Date().toISOString().slice(0,10);renderStage();renderQuestions();calc();showFormStep(1);
