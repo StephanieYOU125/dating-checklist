@@ -143,29 +143,36 @@
       <div class="guide-output" id="fearOutput">選擇最接近現在感受的一項，App 會告訴你下一步。</div>
     </section>
 
-    <section class="card" data-check-group="attention-reset">
-      <h2>當我開始一直想對方</h2>
-      <p class="sub">大腦不停分析對方的訊息與反應，會占用工作記憶，讓你難以專心。這不一定代表你非常愛他，也可能是期待、焦慮和失去控制感混在一起。</p>
-      <div class="rule">我真正害怕的可能是：<strong>只要讓一個人變重要，我就會失去自己的注意力與生活節奏。</strong></div>
-      <p class="sub">不需要完全遠離。照順序做一次，把注意力慢慢帶回自己。</p>
-
-      <label class="option green"><input type="checkbox" data-check-key="attention-name"><span><strong>1. 命名：</strong>我現在不是得到新資訊，只是在反覆猜測。</span></label>
-      <div class="field" style="margin:8px 0 14px"><label for="attentionWorry">2. 寫下我正在擔心什麼</label><textarea id="attentionWorry" data-autosave-key="attentionWorry" maxlength="500" placeholder="例如：我擔心他不喜歡我。"></textarea></div>
-      <label class="option green"><input type="checkbox" data-check-key="attention-write"><span>我已把擔心寫下來，不必繼續放在腦中重播</span></label>
-
+    <section class="card" data-check-group="attention-rules">
+      <h2>我的關係注意力守則</h2>
+      <p class="sub">你可以讓一個人變得重要，但不需要把整個注意力系統交給他。先守住生活主線，再讓親密慢慢增加。</p>
+      <label class="option green"><input type="checkbox" data-check-key="rule-life"><span><strong>1. 先保留生活主線：</strong>睡眠、工作、研究與運動，不因剛認識一個人就大量讓位。</span></label>
+      <label class="option green"><input type="checkbox" data-check-key="rule-reply"><span><strong>2. 固定回訊息時間：</strong>工作和讀書時關閉通知，集中在安排好的時間回覆。</span></label>
+      <div class="field" style="margin:10px 0 14px"><label for="attentionTime">我的集中回覆時間</label><input id="attentionTime" type="time" data-autosave-key="attentionTime"></div>
+      <label class="option green"><input type="checkbox" data-check-key="rule-contact"><span><strong>3. 區分聯繫與監測：</strong>「我想和他分享」是聯繫；「我反覆查看他是否上線」是焦慮監測。</span></label>
+      <label class="option green"><input type="checkbox" data-check-key="rule-write"><span><strong>4. 把猜測寫下來：</strong>分開事實、推測與下一個行動。</span></label>
       <div class="grid" style="margin:12px 0">
-        <div class="field"><label for="attentionFact">3. 目前的事實</label><textarea id="attentionFact" data-autosave-key="attentionFact" maxlength="500" placeholder="例如：他三小時沒有回訊息。"></textarea></div>
-        <div class="field"><label for="attentionGuess">我的推測</label><textarea id="attentionGuess" data-autosave-key="attentionGuess" maxlength="500" placeholder="例如：他開始討厭我。"></textarea></div>
+        <div class="field"><label for="attentionFact">事實</label><textarea id="attentionFact" data-autosave-key="attentionFact" maxlength="500" placeholder="例如：他今天還沒有回覆。"></textarea></div>
+        <div class="field"><label for="attentionGuess">推測</label><textarea id="attentionGuess" data-autosave-key="attentionGuess" maxlength="500" placeholder="例如：他可能不喜歡我。"></textarea></div>
+        <div class="field full"><label for="attentionAction">行動</label><textarea id="attentionAction" data-autosave-key="attentionAction" maxlength="500" placeholder="例如：今晚再看，不立即追問。"></textarea></div>
       </div>
-      <label class="option green"><input type="checkbox" data-check-key="attention-fact"><span>我已經分開「真正發生的事」和「腦中的解釋」</span></label>
-
-      <div class="field" style="margin:12px 0"><label for="attentionTime">4. 我的關係時間</label><input id="attentionTime" type="time" data-autosave-key="attentionTime"><div class="value-hint">每天在固定時間回訊息或思考關係，其他時間先回到生活。</div></div>
-      <label class="option green"><input type="checkbox" data-check-key="attention-time"><span>在設定的時間以前，我不需要反覆檢查訊息</span></label>
-
-      <div class="field" style="margin:12px 0"><label for="attentionTask">5. 現在要完成的一個小任務</label><input id="attentionTask" data-autosave-key="attentionTask" maxlength="200" placeholder="例如：專心閱讀論文 25 分鐘。"></div>
-      <label class="option green"><input type="checkbox" data-check-key="attention-task"><span>我先專注這件事 25 分鐘，再決定是否需要處理關係</span></label>
-      <label class="option red"><input type="checkbox" data-check-key="attention-pause"><span><strong>6. 暫停決定：</strong>情緒很高時，我不立刻告白、質問、追問或突然消失</span></label>
+      <label class="option green"><input type="checkbox" data-check-key="rule-delay"><span><strong>5. 情緒升高時延後決定：</strong>不立即告白、質問、承諾或切斷關係，至少等自己睡過一晚。</span></label>
+      <label class="option green"><input type="checkbox" data-check-key="rule-gradual"><span><strong>6. 採取漸進式親密：</strong>先靠近一點、觀察安全，再決定是否分享更多或進一步發展。</span></label>
       <div class="value-summary" data-check-progress>0 / 6 已完成</div>
+    </section>
+
+    <section class="card" data-check-group="attention-stop">
+      <h2>設定停止條件</h2>
+      <p class="sub">如果出現以下任兩項，就先暫停聊天，把注意力帶回自己的生活；這不是放棄關係，而是避免在失去節奏時繼續加速。</p>
+      <label class="option yellow"><input type="checkbox" data-check-key="stop-checking" data-stop-condition><span>連續檢查訊息或上線狀態</span></label>
+      <label class="option yellow"><input type="checkbox" data-check-key="stop-errors" data-stop-condition><span>工作或研究開始出錯</span></label>
+      <label class="option yellow"><input type="checkbox" data-check-key="stop-sleep" data-stop-condition><span>睡眠受到影響</span></label>
+      <label class="option yellow"><input type="checkbox" data-check-key="stop-analysis" data-stop-condition><span>不斷分析同一段對話</span></label>
+      <label class="option yellow"><input type="checkbox" data-check-key="stop-cancel" data-stop-condition><span>為了配合對方，取消重要安排</span></label>
+      <label class="option yellow"><input type="checkbox" data-check-key="stop-future" data-stop-condition><span>還不了解對方，就已經把未來全部放在他身上</span></label>
+      <div class="development-result green" id="attentionStopResult">目前未達停止條件，可以維持自己的步調。</div>
+      <div class="rule">我的目標不是喜歡一個人卻毫無情緒，而是：<strong>我可以讓你變得重要，但不把整個注意力系統交給你。</strong></div>
+      <p class="sub">適合你的人不會要求你用失去專注、犧牲生活來證明愛。健康的親密會逐漸增加安全感，而不是長期讓你處於警戒狀態。</p>
     </section>
 
     <section class="card">
@@ -180,6 +187,7 @@
 
     <section class="card">
       <h2>可以直接使用的句子</h2>
+      <div class="script-box">「我很重視和你的互動，但我需要保留專心工作和整理自己的時間。如果沒有立即回覆，不代表我不在意你。」</div>
       <div class="script-box">「我對你有好感，但我習慣慢一點認識。我希望我們不用急著定義未來。」</div>
       <div class="script-box">「當關係變近時，我有時會緊張。這不是拒絕你，我需要一點時間確認自己的感受。」</div>
       <div class="script-box">「我想保留自己的工作、朋友和獨處時間，也希望了解你需要多少陪伴。」</div>
@@ -392,6 +400,13 @@ function updateTabCheckProgress(){
   if(out)out.textContent=done+" / "+boxes.length+" 已完成";
  });
 }
+function updateAttentionStop(){
+ const count=$("[data-stop-condition]").filter(x=>x.checked).length,out=$("#attentionStopResult");
+ if(!out)return;
+ if(count>=2){out.className="development-result red";out.textContent="已出現 "+count+" 項：先暫停聊天，睡一晚並回到自己的生活主線。"}
+ else if(count===1){out.className="development-result yellow";out.textContent="已出現 1 項：先放慢，不增加訊息與關係投入。"}
+ else{out.className="development-result green";out.textContent="目前未達停止條件，可以維持自己的步調。"}
+}
 $$("[data-autosave-key]").forEach(field=>{
  field.value=localStorage.getItem(field.dataset.autosaveKey)||"";
  field.addEventListener("input",()=>localStorage.setItem(field.dataset.autosaveKey,field.value));
@@ -400,10 +415,10 @@ const savedTabChecks=getTabChecks();
 $$("[data-check-key]").forEach(box=>{
  box.checked=!!savedTabChecks[box.dataset.checkKey];
  box.addEventListener("change",()=>{
-  const state=getTabChecks();state[box.dataset.checkKey]=box.checked;localStorage.setItem(tabCheckStorageKey,JSON.stringify(state));updateTabCheckProgress();
+  const state=getTabChecks();state[box.dataset.checkKey]=box.checked;localStorage.setItem(tabCheckStorageKey,JSON.stringify(state));updateTabCheckProgress();updateAttentionStop();
  });
 });
-updateTabCheckProgress();
+updateTabCheckProgress();updateAttentionStop();
 $("#relationshipNextStep").value=localStorage.getItem("relationshipNextStep")||"";
 $("#relationshipNextStep").addEventListener("input",e=>localStorage.setItem("relationshipNextStep",e.target.value));
 $("#date").value=new Date().toISOString().slice(0,10);renderStage();renderQuestions();makeFlexible(document);calc();showFormStep(1);
