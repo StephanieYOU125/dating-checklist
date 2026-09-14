@@ -307,8 +307,8 @@ window.editRecord=id=>{
 };
 window.deleteRecord=id=>{if(!confirm("確定刪除這筆紀錄嗎？刪除後無法復原。"))return;saveRecords(records().filter(x=>x.id!==id));renderSaved();toast("紀錄已刪除")};
 function showView(id){$$(".view").forEach(x=>x.classList.toggle("active",x.id===id));$$(".tab").forEach(x=>x.classList.toggle("active",x.dataset.view===id));if(id==="savedView")renderSaved();window.scrollTo({top:0,behavior:"smooth"})}
-$(".tab").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
-$(".guide-choice").forEach(b=>b.addEventListener("click",()=>{$(".guide-choice").forEach(x=>x.classList.toggle("active",x===b));const g=fearGuides[b.dataset.fear];$("#fearOutput").innerHTML="<strong>"+g.title+"</strong><br>"+g.text}));
+$$(".tab").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
+$$(".guide-choice").forEach(b=>b.addEventListener("click",()=>{$$(".guide-choice").forEach(x=>x.classList.toggle("active",x===b));const g=fearGuides[b.dataset.fear];$("#fearOutput").innerHTML="<strong>"+g.title+"</strong><br>"+g.text}));
 $("#relationshipNextStep").value=localStorage.getItem("relationshipNextStep")||"";
 $("#relationshipNextStep").addEventListener("input",e=>localStorage.setItem("relationshipNextStep",e.target.value));
 $("#date").value=new Date().toISOString().slice(0,10);renderStage();renderQuestions();calc();showFormStep(1);
