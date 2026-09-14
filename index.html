@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="相處指南">
-  <meta name="description" content="第一次到第五次約會的伴侶篩選與觀察工具">
+  <meta name="description" content="認識、約會到交往階段的伴侶觀察工具">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon-192.png" type="image/png" sizes="192x192">
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-180.png?v=2">
@@ -36,7 +36,7 @@
     <header class="hero">
       <div class="eyebrow">DATING COMPASS</div>
       <h1>相處指南</h1>
-      <p>不用急著判定他是不是「對的人」。一次約會，只觀察一層重要訊號。</p>
+      <p>不用急著判定他是不是「對的人」。一次見面，只觀察一層重要訊號。</p>
       <div class="privacy">🔒 所有紀錄只儲存在這台裝置</div>
     </header>
 
@@ -47,14 +47,24 @@
         <p class="sub">可以使用暱稱，避免留下敏感個資。</p>
         <div class="grid">
           <div class="field"><label for="person">對方暱稱</label><input id="person" required maxlength="30" placeholder="例如：A"></div>
-          <div class="field"><label for="date">約會日期</label><input id="date" type="date" required></div>
-          <div class="field full"><label for="stage">這是第幾次約會？</label>
+          <div class="field"><label for="date">見面日期</label><input id="date" type="date" required></div>
+          <div class="field full"><label for="interactionType">目前互動性質</label>
+            <select id="interactionType">
+              <option value="first_meeting">初次認識</option>
+              <option value="friends">朋友單獨見面</option>
+              <option value="possible_date" selected>可能是約會</option>
+              <option value="clear_date">明確約會</option>
+              <option value="talking">曖昧了解中</option>
+              <option value="relationship">交往中</option>
+            </select>
+          </div>
+          <div class="field full"><label for="stage">這是第幾次深入見面？</label>
             <select id="stage">
-              <option value="1">第一次｜基本尊重與自在感</option>
-              <option value="2">第二次｜真實性與互相投入</option>
-              <option value="3">第三次｜價值觀與情緒成熟</option>
-              <option value="4">第四次｜衝突處理與界線</option>
-              <option value="5">第五次｜長期方向與相容性</option>
+              <option value="1">第 1 次｜基本尊重與自在感</option>
+              <option value="2">第 2 次｜真實性與互相投入</option>
+              <option value="3">第 3 次｜價值觀與情緒成熟</option>
+              <option value="4">第 4 次｜衝突處理與界線</option>
+              <option value="5">第 5 次以上｜長期方向與相容性</option>
             </select>
           </div>
         </div>
@@ -108,6 +118,8 @@
     <section class="card">
       <h2>最重要的一句話</h2>
       <div class="rule">不要只問「他喜不喜歡我」，也要問：<strong>我跟這個人在一起，會不會成為我喜歡的自己？</strong></div>
+      <h3>怎麼判斷是不是約會？</h3>
+      <p class="sub">重點不是兩個人有沒有單獨吃飯，而是雙方是否帶著了解感情可能性的意圖。如果還沒有說清楚，可以選「可能是約會」，不必急著替關係定義。</p>
       <h3>分數怎麼看？</h3>
       <p class="sub">9–12 分可繼續認識；6–8 分放慢投入並多觀察；0–5 分通常代表相處品質不理想。分數是提醒，不是診斷。</p>
       <h3>價值觀怎麼看？</h3>
@@ -146,7 +158,8 @@ const valueAreas=[
  {key:"freedom",title:"自由與界線",hint:"獨處、朋友、隱私與聯絡頻率"}
 ];
 const valueOptions=[["unknown","尚未確認"],["aligned","大致相近"],["negotiable","不同但可協調"],["conflict","核心衝突"]];
-const stepNames=["基本資料","約會觀察","我的感受","價值觀","安全筆記"];
+const interactionTypes={first_meeting:"初次認識",friends:"朋友單獨見面",possible_date:"可能是約會",clear_date:"明確約會",talking:"曖昧了解中",relationship:"交往中"};
+const stepNames=["基本資料","互動觀察","我的感受","價值觀","安全筆記"];
 let currentStep=1;
 const critical=["暴力、威脅或讓我害怕","未經同意的性行為或身體接觸","控制交友、穿著、金錢或行蹤","跟蹤、監控或擅自查看裝置","重大或反覆的欺騙","拒絕尊重我清楚表達的界線"];
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
@@ -201,17 +214,18 @@ $("#resetBtn").addEventListener("click",resetForm);
 $("#checkForm").addEventListener("submit",e=>{
  e.preventDefault();const c=calc();
  if(c.answered<6&&!confirm("六題尚未全部完成，仍要儲存嗎？"))return;
- const old=records(),item={id:editingId||Date.now(),person:$("#person").value.trim(),date:$("#date").value,stage:+$("#stage").value,green:selected("green"),yellow:selected("yellow"),red:selected("red"),critical:selected("critical"),scores:qs.map((_,i)=>{const x=$('input[name="q'+i+'"]:checked');return x?+x.value:null}),score:c.score,values:Object.fromEntries(valueAreas.map(v=>{const el=$('input[name="value-'+v.key+'"]:checked');return[v.key,el?el.value:null]})),valueEvidence:Object.fromEntries(valueAreas.map(v=>[v.key,$("#evidence-"+v.key)?.value.trim()||""])),notes:$("#notes").value.trim(),updatedAt:new Date().toISOString()};
+ const old=records(),item={id:editingId||Date.now(),person:$("#person").value.trim(),date:$("#date").value,interactionType:$("#interactionType").value,stage:+$("#stage").value,green:selected("green"),yellow:selected("yellow"),red:selected("red"),critical:selected("critical"),scores:qs.map((_,i)=>{const x=$('input[name="q'+i+'"]:checked');return x?+x.value:null}),score:c.score,values:Object.fromEntries(valueAreas.map(v=>{const el=$('input[name="value-'+v.key+'"]:checked');return[v.key,el?el.value:null]})),valueEvidence:Object.fromEntries(valueAreas.map(v=>[v.key,$("#evidence-"+v.key)?.value.trim()||""])),notes:$("#notes").value.trim(),updatedAt:new Date().toISOString()};
  const next=editingId?old.map(x=>x.id===editingId?item:x):[item,...old];saveRecords(next);toast(editingId?"紀錄已更新":"已安全儲存在這台裝置");resetForm();showView("savedView");
 });
 function classify(x){const valueConflict=Object.values(x.values||{}).includes("conflict");if(valueConflict)return["red","價值觀衝突"];if((x.critical||[]).length||(x.red||[]).length)return["red","有紅旗"];if((x.scores||[]).filter(v=>v!==null).length<6)return["yellow","待觀察"];if(x.score>=9)return["green","可繼續認識"];if(x.score>=6)return["yellow","放慢觀察"];return["red","相處不理想"]}
+function interactionLabel(x){return interactionTypes[x.interactionType]||"未分類"}
 function valueSummary(x){const vals=Object.values(x.values||{}).filter(Boolean),count=k=>vals.filter(v=>v===k).length;if(!vals.length)return"";return '<div class="value-summary">價值觀：'+count("aligned")+' 相近・'+(count("negotiable")+count("different"))+' 可協調・'+count("conflict")+' 核心衝突・'+count("unknown")+' 待確認</div>'}
 function renderSaved(){
  const data=records(),box=$("#savedList");if(!data.length){box.innerHTML='<div class="card empty"><div style="font-size:36px">♡</div><h2>還沒有紀錄</h2><p>每次只記下事實與自己的感受，就已經很有價值。</p></div>';return}
- box.innerHTML=data.map(x=>{const c=classify(x),total=x.scores.filter(v=>v!==null).length;return '<article class="saved-card"><div class="saved-top"><div><div class="saved-name">'+safe(x.person)+'</div><div class="saved-meta">'+safe(x.date)+'・第 '+x.stage+' 次約會・'+total+'/6 題</div></div><span class="badge '+c[0]+'">'+c[1]+' '+x.score+'/12</span></div>'+valueSummary(x)+(x.notes?'<p class="saved-note">'+safe(x.notes)+'</p>':'')+'<div class="mini-actions"><button onclick="editRecord('+x.id+')">查看／編輯</button><button onclick="deleteRecord('+x.id+')">刪除</button></div></article>'}).join("");
+ box.innerHTML=data.map(x=>{const c=classify(x),total=x.scores.filter(v=>v!==null).length;return '<article class="saved-card"><div class="saved-top"><div><div class="saved-name">'+safe(x.person)+'</div><div class="saved-meta">'+safe(x.date)+'・'+interactionLabel(x)+'・第 '+x.stage+' 次見面・'+total+'/6 題</div></div><span class="badge '+c[0]+'">'+c[1]+' '+x.score+'/12</span></div>'+valueSummary(x)+(x.notes?'<p class="saved-note">'+safe(x.notes)+'</p>':'')+'<div class="mini-actions"><button onclick="editRecord('+x.id+')">查看／編輯</button><button onclick="deleteRecord('+x.id+')">刪除</button></div></article>'}).join("");
 }
 window.editRecord=id=>{
- const x=records().find(v=>v.id===id);if(!x)return;showView("checkView");$("#person").value=x.person;$("#date").value=x.date;$("#stage").value=String(x.stage);renderStage();renderQuestions();
+ const x=records().find(v=>v.id===id);if(!x)return;showView("checkView");$("#person").value=x.person;$("#date").value=x.date;$("#interactionType").value=x.interactionType||"possible_date";$("#stage").value=String(x.stage);renderStage();renderQuestions();
  ["green","yellow","red","critical"].forEach(n=>$$('input[name="'+n+'"]').forEach(el=>el.checked=(x[n]||[]).includes(el.value)));
  (x.scores||[]).forEach((v,i)=>{if(v!==null){const el=$("#q"+i+"-"+v);if(el)el.checked=true}});valueAreas.forEach((v,i)=>{const status=(x.values||{})[v.key];if(status){const mapped=status==="different"?"negotiable":status,el=$("#v"+i+"-"+mapped);if(el)el.checked=true;const state=$("#valueState-"+v.key);if(state)state.textContent=valueOptions.find(o=>o[0]===mapped)?.[1]||"尚未確認"}const evidence=$("#evidence-"+v.key);if(evidence)evidence.value=(x.valueEvidence||{})[v.key]||""});$("#notes").value=x.notes||"";editingId=id;calc();showFormStep(1);toast("已載入紀錄");
 };
