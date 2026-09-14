@@ -19,7 +19,7 @@
     .card{background:rgba(255,255,255,.92);border:1px solid rgba(124,77,104,.11);border-radius:22px;padding:20px;margin:14px 0;box-shadow:var(--shadow)}.card h2{font-size:20px;margin:0 0 7px}.card h3{font-size:16px;margin:0}.sub{font-size:13px;color:var(--muted);line-height:1.55;margin:0 0 16px}
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:13px;font-weight:700;color:var(--muted)}input,select,textarea{width:100%;border:1px solid var(--line);border-radius:13px;background:#fff;color:var(--ink);padding:13px 14px;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--brand2);box-shadow:0 0 0 3px rgba(167,111,142,.12)}textarea{min-height:92px;resize:vertical}
     .stage-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}.stage-pill{white-space:nowrap;background:#f2e7ed;color:var(--brand);font-size:12px;font-weight:750;padding:7px 10px;border-radius:999px}.flag-title{margin:18px 0 9px;font-size:14px;display:flex;align-items:center;gap:8px}.option{display:flex;gap:11px;align-items:flex-start;padding:11px 4px;border-bottom:1px solid #f2ebef;line-height:1.45;font-size:14px}.option:last-child{border:0}.option input{width:20px;height:20px;margin:0;accent-color:var(--brand);flex:none}.option.green input{accent-color:var(--green)}.option.yellow input{accent-color:var(--yellow)}.option.red input{accent-color:var(--red)}
-    .questions{display:grid;gap:12px}.question{padding:14px;border:1px solid var(--line);border-radius:15px}.question p{margin:0 0 10px;font-size:14px;font-weight:650;line-height:1.5}.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.seg input{position:absolute;opacity:0;pointer-events:none}.seg label{text-align:center;padding:9px 4px;border-radius:10px;background:#f5f1f3;color:var(--muted);font-size:12px;cursor:pointer}.seg input:checked+label{background:var(--brand);color:#fff;font-weight:700}
+    .questions{display:grid;gap:12px}.question{padding:14px;border:1px solid var(--line);border-radius:15px}.question p{margin:0 0 10px;font-size:14px;font-weight:650;line-height:1.5}.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.seg input{position:absolute;opacity:0;pointer-events:none}.seg label{text-align:center;padding:9px 4px;border-radius:10px;background:#f5f1f3;color:var(--muted);font-size:12px;cursor:pointer}.seg input:checked+label{background:var(--brand);color:#fff;font-weight:700}.seg.value-seg{grid-template-columns:repeat(2,1fr)}.value-summary{font-size:12px;color:var(--muted);background:#f8f4f6;border-radius:10px;padding:9px 11px;margin:10px 0}.value-tip{border-left:3px solid var(--brand2);padding-left:11px;color:var(--muted);font-size:13px;line-height:1.55;margin:12px 0}
     .result{position:sticky;bottom:calc(76px + env(safe-area-inset-bottom));z-index:5;background:rgba(48,38,44,.94);backdrop-filter:blur(16px);color:#fff;border-radius:18px;padding:14px 16px;margin:16px 0;box-shadow:0 12px 35px rgba(48,38,44,.28);display:flex;justify-content:space-between;align-items:center;gap:12px}.score strong{font-size:25px}.score small{color:#d9ccd3}.status{text-align:right;font-size:13px;font-weight:750;max-width:58%}.status.red{color:#ffb6bd}.status.yellow{color:#ffe4a3}.status.green{color:#a9e7c7}
     .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{border:0;border-radius:14px;padding:13px 16px;font-weight:750;cursor:pointer}.btn.primary{background:var(--brand);color:#fff}.btn.secondary{background:#efe7eb;color:var(--brand)}.btn.danger{background:var(--red-bg);color:var(--red)}.btn:active{transform:scale(.98)}
     .tabs{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:min(720px,100%);z-index:10;display:grid;grid-template-columns:repeat(3,1fr);background:rgba(255,255,255,.94);border-top:1px solid var(--line);backdrop-filter:blur(18px);padding:8px 10px calc(8px + env(safe-area-inset-bottom))}.tab{border:0;background:none;color:var(--muted);padding:8px 3px;font-size:12px;display:grid;gap:3px;place-items:center}.tab span{font-size:20px}.tab.active{color:var(--brand);font-weight:750}
@@ -71,6 +71,13 @@
       </section>
 
       <section class="card">
+        <h2>價值觀觀察</h2>
+        <p class="sub">價值觀不是問一次就能確定。先聽他的說法，再看他遇到選擇與利益衝突時怎麼做。</p>
+        <div class="value-tip">不用每次全部問完；只記錄這次自然談到或實際觀察到的項目。</div>
+        <div class="questions" id="valueQuestions"></div>
+      </section>
+
+      <section class="card">
         <h2>重大紅旗</h2>
         <p class="sub">這些安全問題不能由其他優點或高分抵銷。</p>
         <div id="criticalFlags"></div>
@@ -97,6 +104,8 @@
       <div class="rule">不要只問「他喜不喜歡我」，也要問：<strong>我跟這個人在一起，會不會成為我喜歡的自己？</strong></div>
       <h3>分數怎麼看？</h3>
       <p class="sub">9–12 分可繼續認識；6–8 分放慢投入並多觀察；0–5 分通常代表相處品質不理想。分數是提醒，不是診斷。</p>
+      <h3>價值觀怎麼看？</h3>
+      <p class="sub">重點不是六項都完全相同，而是重大方向能否協調。尤其是忠誠、婚育、金錢、生活地點和個人界線，若屬於彼此不能妥協的核心需求，就不應只靠感情忽略。</p>
       <div class="danger-box"><strong>安全優先：</strong>暴力、威脅、強迫、跟蹤、重大欺騙或反覆控制界線，都不應被總分抵銷。若感到危險，優先離開現場並向可信任的人或當地緊急服務求助。</div>
     </section>
     <section class="card install">
@@ -122,6 +131,15 @@ const stageData={
 5:{title:"長期方向與相容性",prompt:"把喜歡放進真實生活，看看重要方向能不能協調。",green:["願意說清楚對關係的期待","能談婚姻、孩子、金錢與居住地","支持彼此的工作與成長","差異存在時願意一起找方案"],yellow:["未來想法仍模糊","有明顯差異但願意繼續談","投入程度還不一致"],red:["重大方向衝突且完全不願協調","要求我放棄重要目標或人際關係","對忠誠與承諾反覆說法不一","只想享受關係卻拒絕任何責任"]}
 };
 const qs=["我跟他相處時，有沒有覺得安全？","我可以自然做自己嗎？","他是真的對我有興趣，而不只是想有人陪嗎？","他說的和做的有一致嗎？","這段關係是雙方都投入嗎？","拿掉外貌、學歷和工作，我仍然欣賞他嗎？"];
+const valueAreas=[
+ {key:"commitment",title:"關係與忠誠",hint:"對承諾、專一、曖昧界線的看法"},
+ {key:"family",title:"家庭與婚育",hint:"婚姻、孩子、與原生家庭的界線"},
+ {key:"money",title:"金錢觀",hint:"消費、儲蓄、負債與共同支出的態度"},
+ {key:"growth",title:"工作與成長",hint:"如何看待彼此的職涯、學習與成就"},
+ {key:"location",title:"生活地點與未來",hint:"留學、外派、遠距及長期居住方向"},
+ {key:"freedom",title:"自由與界線",hint:"獨處、朋友、隱私與聯絡頻率"}
+];
+const valueOptions=[["unknown","尚未討論"],["aligned","大致相近"],["different","有差異"],["conflict","重大衝突"]];
 const critical=["暴力、威脅或讓我害怕","未經同意的性行為或身體接觸","控制交友、穿著、金錢或行蹤","跟蹤、監控或擅自查看裝置","重大或反覆的欺騙","拒絕尊重我清楚表達的界線"];
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 let editingId=null;
@@ -134,6 +152,7 @@ function renderStage(){
 function renderQuestions(){
  $("#questions").innerHTML=qs.map((q,i)=>'<div class="question"><p>'+(i+1)+'. '+q+'</p><div class="seg">'+[["0","不好"],["1","不確定"],["2","很好"]].map(v=>'<input id="q'+i+'-'+v[0]+'" type="radio" name="q'+i+'" value="'+v[0]+'"><label for="q'+i+'-'+v[0]+'">'+v[1]+'</label>').join("")+'</div></div>').join("");
  $("#criticalFlags").innerHTML=critical.map(x=>'<label class="option red"><input type="checkbox" name="critical" value="'+safe(x)+'"><span>'+safe(x)+'</span></label>').join("");
+ $("#valueQuestions").innerHTML=valueAreas.map((v,i)=>'<div class="question"><p>'+v.title+'</p><div class="sub" style="margin:-5px 0 10px">'+v.hint+'</div><div class="seg value-seg">'+valueOptions.map(o=>'<input id="v'+i+'-'+o[0]+'" type="radio" name="value-'+v.key+'" value="'+o[0]+'"><label for="v'+i+'-'+o[0]+'">'+o[1]+'</label>').join("")+'</div></div>').join("");
 }
 function selected(name){return $$('input[name="'+name+'"]:checked').map(x=>x.value)}
 function calc(){
@@ -159,18 +178,19 @@ $("#resetBtn").addEventListener("click",resetForm);
 $("#checkForm").addEventListener("submit",e=>{
  e.preventDefault();const c=calc();
  if(c.answered<6&&!confirm("六題尚未全部完成，仍要儲存嗎？"))return;
- const old=records(),item={id:editingId||Date.now(),person:$("#person").value.trim(),date:$("#date").value,stage:+$("#stage").value,green:selected("green"),yellow:selected("yellow"),red:selected("red"),critical:selected("critical"),scores:qs.map((_,i)=>{const x=$('input[name="q'+i+'"]:checked');return x?+x.value:null}),score:c.score,notes:$("#notes").value.trim(),updatedAt:new Date().toISOString()};
+ const old=records(),item={id:editingId||Date.now(),person:$("#person").value.trim(),date:$("#date").value,stage:+$("#stage").value,green:selected("green"),yellow:selected("yellow"),red:selected("red"),critical:selected("critical"),scores:qs.map((_,i)=>{const x=$('input[name="q'+i+'"]:checked');return x?+x.value:null}),score:c.score,values:Object.fromEntries(valueAreas.map(v=>{const el=$('input[name="value-'+v.key+'"]:checked');return[v.key,el?el.value:null]})),notes:$("#notes").value.trim(),updatedAt:new Date().toISOString()};
  const next=editingId?old.map(x=>x.id===editingId?item:x):[item,...old];saveRecords(next);toast(editingId?"紀錄已更新":"已安全儲存在這台裝置");resetForm();showView("savedView");
 });
-function classify(x){if(x.critical.length||x.red.length)return["red","有紅旗"];if(x.scores.filter(v=>v!==null).length<6)return["yellow","待觀察"];if(x.score>=9)return["green","可繼續認識"];if(x.score>=6)return["yellow","放慢觀察"];return["red","相處不理想"]}
+function classify(x){const valueConflict=Object.values(x.values||{}).includes("conflict");if(valueConflict)return["red","價值觀衝突"];if((x.critical||[]).length||(x.red||[]).length)return["red","有紅旗"];if((x.scores||[]).filter(v=>v!==null).length<6)return["yellow","待觀察"];if(x.score>=9)return["green","可繼續認識"];if(x.score>=6)return["yellow","放慢觀察"];return["red","相處不理想"]}
+function valueSummary(x){const vals=Object.values(x.values||{}).filter(Boolean),count=k=>vals.filter(v=>v===k).length;if(!vals.length)return"";return '<div class="value-summary">價值觀：'+count("aligned")+' 相近・'+count("different")+' 有差異・'+count("conflict")+' 重大衝突・'+count("unknown")+' 待了解</div>'}
 function renderSaved(){
  const data=records(),box=$("#savedList");if(!data.length){box.innerHTML='<div class="card empty"><div style="font-size:36px">♡</div><h2>還沒有紀錄</h2><p>每次只記下事實與自己的感受，就已經很有價值。</p></div>';return}
- box.innerHTML=data.map(x=>{const c=classify(x),total=x.scores.filter(v=>v!==null).length;return '<article class="saved-card"><div class="saved-top"><div><div class="saved-name">'+safe(x.person)+'</div><div class="saved-meta">'+safe(x.date)+'・第 '+x.stage+' 次約會・'+total+'/6 題</div></div><span class="badge '+c[0]+'">'+c[1]+' '+x.score+'/12</span></div>'+(x.notes?'<p class="saved-note">'+safe(x.notes)+'</p>':'')+'<div class="mini-actions"><button onclick="editRecord('+x.id+')">查看／編輯</button><button onclick="deleteRecord('+x.id+')">刪除</button></div></article>'}).join("");
+ box.innerHTML=data.map(x=>{const c=classify(x),total=x.scores.filter(v=>v!==null).length;return '<article class="saved-card"><div class="saved-top"><div><div class="saved-name">'+safe(x.person)+'</div><div class="saved-meta">'+safe(x.date)+'・第 '+x.stage+' 次約會・'+total+'/6 題</div></div><span class="badge '+c[0]+'">'+c[1]+' '+x.score+'/12</span></div>'+valueSummary(x)+(x.notes?'<p class="saved-note">'+safe(x.notes)+'</p>':'')+'<div class="mini-actions"><button onclick="editRecord('+x.id+')">查看／編輯</button><button onclick="deleteRecord('+x.id+')">刪除</button></div></article>'}).join("");
 }
 window.editRecord=id=>{
  const x=records().find(v=>v.id===id);if(!x)return;showView("checkView");$("#person").value=x.person;$("#date").value=x.date;$("#stage").value=String(x.stage);renderStage();renderQuestions();
  ["green","yellow","red","critical"].forEach(n=>$$('input[name="'+n+'"]').forEach(el=>el.checked=(x[n]||[]).includes(el.value)));
- x.scores.forEach((v,i)=>{if(v!==null){const el=$("#q"+i+"-"+v);if(el)el.checked=true}});$("#notes").value=x.notes||"";editingId=id;calc();window.scrollTo({top:0,behavior:"smooth"});toast("已載入紀錄");
+ (x.scores||[]).forEach((v,i)=>{if(v!==null){const el=$("#q"+i+"-"+v);if(el)el.checked=true}});valueAreas.forEach((v,i)=>{const status=(x.values||{})[v.key];if(status){const el=$("#v"+i+"-"+status);if(el)el.checked=true}});$("#notes").value=x.notes||"";editingId=id;calc();window.scrollTo({top:0,behavior:"smooth"});toast("已載入紀錄");
 };
 window.deleteRecord=id=>{if(!confirm("確定刪除這筆紀錄嗎？刪除後無法復原。"))return;saveRecords(records().filter(x=>x.id!==id));renderSaved();toast("紀錄已刪除")};
 function showView(id){$$(".view").forEach(x=>x.classList.toggle("active",x.id===id));$$(".tab").forEach(x=>x.classList.toggle("active",x.dataset.view===id));if(id==="savedView")renderSaved();window.scrollTo({top:0,behavior:"smooth"})}
