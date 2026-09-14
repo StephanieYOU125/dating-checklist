@@ -1,0 +1,14 @@
+{
+  "name": "相處指南｜約會觀察表",
+  "short_name": "相處指南",
+  "description": "第一次到第五次約會的伴侶篩選與觀察工具",
+  "lang": "zh-Hant",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8f5f7",
+  "theme_color": "#7c4d68",
+  "icons": [
+    {"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
