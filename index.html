@@ -19,7 +19,7 @@
     .card{background:rgba(255,255,255,.92);border:1px solid rgba(124,77,104,.11);border-radius:22px;padding:20px;margin:14px 0;box-shadow:var(--shadow)}.card h2{font-size:20px;margin:0 0 7px}.card h3{font-size:16px;margin:0}.sub{font-size:13px;color:var(--muted);line-height:1.55;margin:0 0 16px}
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:13px;font-weight:700;color:var(--muted)}input,select,textarea{width:100%;border:1px solid var(--line);border-radius:13px;background:#fff;color:var(--ink);padding:13px 14px;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--brand2);box-shadow:0 0 0 3px rgba(167,111,142,.12)}textarea{min-height:92px;resize:vertical}
     .stage-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}.stage-pill{white-space:nowrap;background:#f2e7ed;color:var(--brand);font-size:12px;font-weight:750;padding:7px 10px;border-radius:999px}.flag-title{margin:18px 0 9px;font-size:14px;display:flex;align-items:center;gap:8px}.option{display:flex;gap:11px;align-items:flex-start;padding:11px 4px;border-bottom:1px solid #f2ebef;line-height:1.45;font-size:14px}.option:last-child{border:0}.option input{width:20px;height:20px;margin:0;accent-color:var(--brand);flex:none}.option.green input{accent-color:var(--green)}.option.yellow input{accent-color:var(--yellow)}.option.red input{accent-color:var(--red)}
-    .questions{display:grid;gap:12px}.question{padding:14px;border:1px solid var(--line);border-radius:15px}.question p{margin:0 0 10px;font-size:14px;font-weight:650;line-height:1.5}.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.seg input{position:absolute;opacity:0;pointer-events:none}.seg label{text-align:center;padding:9px 4px;border-radius:10px;background:#f5f1f3;color:var(--muted);font-size:12px;cursor:pointer}.seg input:checked+label{background:var(--brand);color:#fff;font-weight:700}.seg.value-seg{grid-template-columns:repeat(2,1fr)}.value-summary{font-size:12px;color:var(--muted);background:#f8f4f6;border-radius:10px;padding:9px 11px;margin:10px 0}.value-tip{border-left:3px solid var(--brand2);padding-left:11px;color:var(--muted);font-size:13px;line-height:1.55;margin:12px 0}
+    .questions{display:grid;gap:12px}.question{padding:14px;border:1px solid var(--line);border-radius:15px}.question p{margin:0 0 10px;font-size:14px;font-weight:650;line-height:1.5}.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.seg input{position:absolute;opacity:0;pointer-events:none}.seg label{text-align:center;padding:9px 4px;border-radius:10px;background:#f5f1f3;color:var(--muted);font-size:12px;cursor:pointer}.seg input:checked+label{background:var(--brand);color:#fff;font-weight:700}.seg.value-seg{grid-template-columns:repeat(2,1fr)}.value-summary{font-size:12px;color:var(--muted);background:#f8f4f6;border-radius:10px;padding:9px 11px;margin:10px 0}.value-tip{border-left:3px solid var(--brand2);padding-left:11px;color:var(--muted);font-size:13px;line-height:1.55;margin:12px 0}.development-result{border-radius:14px;padding:14px;margin-top:14px;font-size:14px;font-weight:750;line-height:1.5}.development-result.green{background:var(--green-bg);color:var(--green)}.development-result.yellow{background:var(--yellow-bg);color:var(--yellow)}.development-result.red{background:var(--red-bg);color:var(--red)}.development-summary{font-size:12px;font-weight:700;border-radius:10px;padding:9px 11px;margin:10px 0}.development-summary.green{background:var(--green-bg);color:var(--green)}.development-summary.yellow{background:var(--yellow-bg);color:var(--yellow)}.development-summary.red{background:var(--red-bg);color:var(--red)}
     .result{position:sticky;bottom:calc(76px + env(safe-area-inset-bottom));z-index:5;background:rgba(48,38,44,.94);backdrop-filter:blur(16px);color:#fff;border-radius:18px;padding:14px 16px;margin:16px 0;box-shadow:0 12px 35px rgba(48,38,44,.28);display:flex;justify-content:space-between;align-items:center;gap:12px}.score strong{font-size:25px}.score small{color:#d9ccd3}.status{text-align:right;font-size:13px;font-weight:750;max-width:58%}.status.red{color:#ffb6bd}.status.yellow{color:#ffe4a3}.status.green{color:#a9e7c7}
     .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{border:0;border-radius:14px;padding:13px 16px;font-weight:750;cursor:pointer}.btn.primary{background:var(--brand);color:#fff}.btn.secondary{background:#efe7eb;color:var(--brand)}.btn.danger{background:var(--red-bg);color:var(--red)}.btn:active{transform:scale(.98)}
     .tabs{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:min(720px,100%);z-index:10;display:grid;grid-template-columns:repeat(3,1fr);background:rgba(255,255,255,.94);border-top:1px solid var(--line);backdrop-filter:blur(18px);padding:8px 10px calc(8px + env(safe-area-inset-bottom))}.tab{border:0;background:none;color:var(--muted);padding:8px 3px;font-size:12px;display:grid;gap:3px;place-items:center}.tab span{font-size:20px}.tab.active{color:var(--brand);font-weight:750}
@@ -81,6 +81,13 @@
         <div class="questions" id="questions"></div>
       </section>
 
+      <section class="card form-step" data-step="3">
+        <h2>是否適合進一步發展？</h2>
+        <p class="sub">分別判斷四個條件。這不是替你做決定，而是提醒你不要只看心動。</p>
+        <div class="questions" id="developmentQuestions"></div>
+        <div class="development-result yellow" id="developmentResult">完成四項判斷後，再決定下一步。</div>
+      </section>
+
       <section class="card form-step" data-step="4">
         <h2>價值觀觀察</h2>
         <p class="sub">價值觀不是問一次就能確定。先聽他的說法，再看他遇到選擇與利益衝突時怎麼做。</p>
@@ -122,6 +129,8 @@
       <p class="sub">重點不是兩個人有沒有單獨吃飯，而是雙方是否帶著了解感情可能性的意圖。如果還沒有說清楚，可以選「可能是約會」，不必急著替關係定義。</p>
       <h3>分數怎麼看？</h3>
       <p class="sub">9–12 分可繼續認識；6–8 分放慢投入並多觀察；0–5 分通常代表相處品質不理想。分數是提醒，不是診斷。</p>
+      <h3>什麼時候可以進一步？</h3>
+      <p class="sub">當相處安全、雙方投入、言行一致且重要方向可協調時，可以用一次主動邀約、稍微表達好感或分享更個人的想法，小幅向前一步，再觀察對方是否也回應。</p>
       <h3>價值觀怎麼看？</h3>
       <p class="sub">重點不是六項都完全相同，而是重大方向能否協調。尤其是忠誠、婚育、金錢、生活地點和個人界線，若屬於彼此不能妥協的核心需求，就不應只靠感情忽略。</p>
       <div class="danger-box"><strong>安全優先：</strong>暴力、威脅、強迫、跟蹤、重大欺騙或反覆控制界線，都不應被總分抵銷。若感到危險，優先離開現場並向可信任的人或當地緊急服務求助。</div>
@@ -149,6 +158,13 @@ const stageData={
 5:{title:"長期方向與相容性",prompt:"把喜歡放進真實生活，看看重要方向能不能協調。",green:["願意說清楚對關係的期待","能談婚姻、孩子、金錢與居住地","支持彼此的工作與成長","差異存在時願意一起找方案"],yellow:["未來想法仍模糊","有明顯差異但願意繼續談","投入程度還不一致"],red:["重大方向衝突且完全不願協調","要求我放棄重要目標或人際關係","對忠誠與承諾反覆說法不一","只想享受關係卻拒絕任何責任"]}
 };
 const qs=["我跟他相處時，有沒有覺得安全？","我可以自然做自己嗎？","他是真的對我有興趣，而不只是想有人陪嗎？","他說的和做的有一致嗎？","這段關係是雙方都投入嗎？","拿掉外貌、學歷和工作，我仍然欣賞他嗎？"];
+const developmentAreas=[
+ {key:"safe",title:"相處安全舒服",hint:"我能做自己，不必一直猜測、討好或害怕"},
+ {key:"mutual",title:"對方也有投入",hint:"他也會主動聯絡、安排見面與關心我"},
+ {key:"consistent",title:"言行長期一致",hint:"不是偶爾熱情，說過的事情大致會做到"},
+ {key:"compatible",title:"重要方向可協調",hint:"差異存在，但雙方願意理解並尋找做法"}
+];
+const developmentOptions=[["no","沒有"],["unsure","不確定"],["yes","有"]];
 const valueAreas=[
  {key:"commitment",title:"關係與忠誠",hint:"對承諾、專一、曖昧界線的看法"},
  {key:"family",title:"家庭與婚育",hint:"婚姻、孩子、與原生家庭的界線"},
@@ -172,11 +188,18 @@ function renderStage(){
 }
 function renderQuestions(){
  $("#questions").innerHTML=qs.map((q,i)=>'<div class="question"><p>'+(i+1)+'. '+q+'</p><div class="seg">'+[["0","不好"],["1","不確定"],["2","很好"]].map(v=>'<input id="q'+i+'-'+v[0]+'" type="radio" name="q'+i+'" value="'+v[0]+'"><label for="q'+i+'-'+v[0]+'">'+v[1]+'</label>').join("")+'</div></div>').join("");
+ $("#developmentQuestions").innerHTML=developmentAreas.map((v,i)=>'<div class="question"><p>'+v.title+'</p><div class="sub" style="margin:-5px 0 10px">'+v.hint+'</div><div class="seg">'+developmentOptions.map(o=>'<input id="dev'+i+'-'+o[0]+'" type="radio" name="development-'+v.key+'" value="'+o[0]+'"><label for="dev'+i+'-'+o[0]+'">'+o[1]+'</label>').join("")+'</div></div>').join("");
  $("#criticalFlags").innerHTML=critical.map(x=>'<label class="option red"><input type="checkbox" name="critical" value="'+safe(x)+'"><span>'+safe(x)+'</span></label>').join("");
  const mine=getMyValues();
  $("#valueQuestions").innerHTML=valueAreas.map((v,i)=>'<details class="value-detail"><summary><span>'+v.title+'<div class="value-hint">'+v.hint+'</div></span><span class="value-state" id="valueState-'+v.key+'">尚未確認</span></summary><div class="value-body"><label class="value-label" for="base-'+v.key+'">① 我的核心需求</label><textarea id="base-'+v.key+'" data-base="'+v.key+'" placeholder="我希望怎麼生活？什麼是不能妥協的？">'+safe(mine[v.key]||"")+'</textarea><label class="value-label" for="evidence-'+v.key+'">② 對方的說法與實際行為</label><textarea id="evidence-'+v.key+'" data-evidence="'+v.key+'" placeholder="記錄具體言行，不只寫印象"></textarea><span class="value-label">③ 我們的相容性</span><div class="seg value-seg">'+valueOptions.map(o=>'<input id="v'+i+'-'+o[0]+'" type="radio" name="value-'+v.key+'" value="'+o[0]+'"><label for="v'+i+'-'+o[0]+'">'+o[1]+'</label>').join("")+'</div></div></details>').join("");
 }
 function selected(name){return $$('input[name="'+name+'"]:checked').map(x=>x.value)}
+function developmentResult(data){
+ const values=data||developmentAreas.map(v=>{const el=$('input[name="development-'+v.key+'"]:checked');return el?el.value:null});
+ const answered=values.filter(Boolean).length,hasNo=values.includes("no"),allYes=answered===4&&values.every(v=>v==="yes");
+ let result=allYes?{code:"forward",tone:"green",label:"可以小幅向前一步，並繼續觀察一致性。"}:hasNo?{code:"pause",tone:"red",label:"先不要增加投入，釐清不符合的條件。"}:{code:"observe",tone:"yellow",label:answered===4?"維持目前步調，再累積一些觀察。":"已完成 "+answered+" / 4 項，暫時不急著加速。"};
+ const el=$("#developmentResult");if(el){el.className="development-result "+result.tone;el.textContent=result.label}return{values,result};
+}
 function calc(){
  const vals=qs.map((_,i)=>$('input[name="q'+i+'"]:checked')).filter(Boolean).map(x=>+x.value),score=vals.reduce((a,b)=>a+b,0),crit=selected("critical").length,red=selected("red").length;
  $("#score").textContent=vals.length?score:"—";const el=$("#status");
@@ -186,7 +209,7 @@ function calc(){
  else if(score>=9){el.textContent="值得繼續認識，仍要看行為一致性";el.className="status green"}
  else if(score>=6){el.textContent="放慢投入，多觀察幾次";el.className="status yellow"}
  else{el.textContent="相處品質不理想，優先照顧自己";el.className="status red"}
- return {score,answered:vals.length,critical:crit,red};
+ developmentResult();return {score,answered:vals.length,critical:crit,red};
 }
 function getMyValues(){try{return JSON.parse(localStorage.getItem("myDatingValues")||"{}")}catch{return{}}}
 function saveMyValue(key,value){const mine=getMyValues();mine[key]=value;localStorage.setItem("myDatingValues",JSON.stringify(mine))}
@@ -214,20 +237,21 @@ $("#resetBtn").addEventListener("click",resetForm);
 $("#checkForm").addEventListener("submit",e=>{
  e.preventDefault();const c=calc();
  if(c.answered<6&&!confirm("六題尚未全部完成，仍要儲存嗎？"))return;
- const old=records(),item={id:editingId||Date.now(),person:$("#person").value.trim(),date:$("#date").value,interactionType:$("#interactionType").value,stage:+$("#stage").value,green:selected("green"),yellow:selected("yellow"),red:selected("red"),critical:selected("critical"),scores:qs.map((_,i)=>{const x=$('input[name="q'+i+'"]:checked');return x?+x.value:null}),score:c.score,values:Object.fromEntries(valueAreas.map(v=>{const el=$('input[name="value-'+v.key+'"]:checked');return[v.key,el?el.value:null]})),valueEvidence:Object.fromEntries(valueAreas.map(v=>[v.key,$("#evidence-"+v.key)?.value.trim()||""])),notes:$("#notes").value.trim(),updatedAt:new Date().toISOString()};
+ const old=records(),item={id:editingId||Date.now(),person:$("#person").value.trim(),date:$("#date").value,interactionType:$("#interactionType").value,stage:+$("#stage").value,green:selected("green"),yellow:selected("yellow"),red:selected("red"),critical:selected("critical"),scores:qs.map((_,i)=>{const x=$('input[name="q'+i+'"]:checked');return x?+x.value:null}),score:c.score,development:developmentResult().values,developmentDecision:developmentResult().result.code,values:Object.fromEntries(valueAreas.map(v=>{const el=$('input[name="value-'+v.key+'"]:checked');return[v.key,el?el.value:null]})),valueEvidence:Object.fromEntries(valueAreas.map(v=>[v.key,$("#evidence-"+v.key)?.value.trim()||""])),notes:$("#notes").value.trim(),updatedAt:new Date().toISOString()};
  const next=editingId?old.map(x=>x.id===editingId?item:x):[item,...old];saveRecords(next);toast(editingId?"紀錄已更新":"已安全儲存在這台裝置");resetForm();showView("savedView");
 });
 function classify(x){const valueConflict=Object.values(x.values||{}).includes("conflict");if(valueConflict)return["red","價值觀衝突"];if((x.critical||[]).length||(x.red||[]).length)return["red","有紅旗"];if((x.scores||[]).filter(v=>v!==null).length<6)return["yellow","待觀察"];if(x.score>=9)return["green","可繼續認識"];if(x.score>=6)return["yellow","放慢觀察"];return["red","相處不理想"]}
 function interactionLabel(x){return interactionTypes[x.interactionType]||"未分類"}
+function developmentSummary(x){if(!x.development)return"";const d=developmentResult(x.development).result;return '<div class="development-summary '+d.tone+'">下一步：'+d.label+'</div>'}
 function valueSummary(x){const vals=Object.values(x.values||{}).filter(Boolean),count=k=>vals.filter(v=>v===k).length;if(!vals.length)return"";return '<div class="value-summary">價值觀：'+count("aligned")+' 相近・'+(count("negotiable")+count("different"))+' 可協調・'+count("conflict")+' 核心衝突・'+count("unknown")+' 待確認</div>'}
 function renderSaved(){
  const data=records(),box=$("#savedList");if(!data.length){box.innerHTML='<div class="card empty"><div style="font-size:36px">♡</div><h2>還沒有紀錄</h2><p>每次只記下事實與自己的感受，就已經很有價值。</p></div>';return}
- box.innerHTML=data.map(x=>{const c=classify(x),total=x.scores.filter(v=>v!==null).length;return '<article class="saved-card"><div class="saved-top"><div><div class="saved-name">'+safe(x.person)+'</div><div class="saved-meta">'+safe(x.date)+'・'+interactionLabel(x)+'・第 '+x.stage+' 次見面・'+total+'/6 題</div></div><span class="badge '+c[0]+'">'+c[1]+' '+x.score+'/12</span></div>'+valueSummary(x)+(x.notes?'<p class="saved-note">'+safe(x.notes)+'</p>':'')+'<div class="mini-actions"><button onclick="editRecord('+x.id+')">查看／編輯</button><button onclick="deleteRecord('+x.id+')">刪除</button></div></article>'}).join("");
+ box.innerHTML=data.map(x=>{const c=classify(x),total=x.scores.filter(v=>v!==null).length;return '<article class="saved-card"><div class="saved-top"><div><div class="saved-name">'+safe(x.person)+'</div><div class="saved-meta">'+safe(x.date)+'・'+interactionLabel(x)+'・第 '+x.stage+' 次見面・'+total+'/6 題</div></div><span class="badge '+c[0]+'">'+c[1]+' '+x.score+'/12</span></div>'+developmentSummary(x)+valueSummary(x)+(x.notes?'<p class="saved-note">'+safe(x.notes)+'</p>':'')+'<div class="mini-actions"><button onclick="editRecord('+x.id+')">查看／編輯</button><button onclick="deleteRecord('+x.id+')">刪除</button></div></article>'}).join("");
 }
 window.editRecord=id=>{
  const x=records().find(v=>v.id===id);if(!x)return;showView("checkView");$("#person").value=x.person;$("#date").value=x.date;$("#interactionType").value=x.interactionType||"possible_date";$("#stage").value=String(x.stage);renderStage();renderQuestions();
  ["green","yellow","red","critical"].forEach(n=>$$('input[name="'+n+'"]').forEach(el=>el.checked=(x[n]||[]).includes(el.value)));
- (x.scores||[]).forEach((v,i)=>{if(v!==null){const el=$("#q"+i+"-"+v);if(el)el.checked=true}});valueAreas.forEach((v,i)=>{const status=(x.values||{})[v.key];if(status){const mapped=status==="different"?"negotiable":status,el=$("#v"+i+"-"+mapped);if(el)el.checked=true;const state=$("#valueState-"+v.key);if(state)state.textContent=valueOptions.find(o=>o[0]===mapped)?.[1]||"尚未確認"}const evidence=$("#evidence-"+v.key);if(evidence)evidence.value=(x.valueEvidence||{})[v.key]||""});$("#notes").value=x.notes||"";editingId=id;calc();showFormStep(1);toast("已載入紀錄");
+ (x.scores||[]).forEach((v,i)=>{if(v!==null){const el=$("#q"+i+"-"+v);if(el)el.checked=true}});(x.development||[]).forEach((v,i)=>{if(v){const el=$("#dev"+i+"-"+v);if(el)el.checked=true}});developmentResult(x.development||[]);valueAreas.forEach((v,i)=>{const status=(x.values||{})[v.key];if(status){const mapped=status==="different"?"negotiable":status,el=$("#v"+i+"-"+mapped);if(el)el.checked=true;const state=$("#valueState-"+v.key);if(state)state.textContent=valueOptions.find(o=>o[0]===mapped)?.[1]||"尚未確認"}const evidence=$("#evidence-"+v.key);if(evidence)evidence.value=(x.valueEvidence||{})[v.key]||""});$("#notes").value=x.notes||"";editingId=id;calc();showFormStep(1);toast("已載入紀錄");
 };
 window.deleteRecord=id=>{if(!confirm("確定刪除這筆紀錄嗎？刪除後無法復原。"))return;saveRecords(records().filter(x=>x.id!==id));renderSaved();toast("紀錄已刪除")};
 function showView(id){$$(".view").forEach(x=>x.classList.toggle("active",x.id===id));$$(".tab").forEach(x=>x.classList.toggle("active",x.dataset.view===id));if(id==="savedView")renderSaved();window.scrollTo({top:0,behavior:"smooth"})}
