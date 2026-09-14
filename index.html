@@ -143,6 +143,31 @@
       <div class="guide-output" id="fearOutput">選擇最接近現在感受的一項，App 會告訴你下一步。</div>
     </section>
 
+    <section class="card" data-check-group="attention-reset">
+      <h2>當我開始一直想對方</h2>
+      <p class="sub">大腦不停分析對方的訊息與反應，會占用工作記憶，讓你難以專心。這不一定代表你非常愛他，也可能是期待、焦慮和失去控制感混在一起。</p>
+      <div class="rule">我真正害怕的可能是：<strong>只要讓一個人變重要，我就會失去自己的注意力與生活節奏。</strong></div>
+      <p class="sub">不需要完全遠離。照順序做一次，把注意力慢慢帶回自己。</p>
+
+      <label class="option green"><input type="checkbox" data-check-key="attention-name"><span><strong>1. 命名：</strong>我現在不是得到新資訊，只是在反覆猜測。</span></label>
+      <div class="field" style="margin:8px 0 14px"><label for="attentionWorry">2. 寫下我正在擔心什麼</label><textarea id="attentionWorry" data-autosave-key="attentionWorry" maxlength="500" placeholder="例如：我擔心他不喜歡我。"></textarea></div>
+      <label class="option green"><input type="checkbox" data-check-key="attention-write"><span>我已把擔心寫下來，不必繼續放在腦中重播</span></label>
+
+      <div class="grid" style="margin:12px 0">
+        <div class="field"><label for="attentionFact">3. 目前的事實</label><textarea id="attentionFact" data-autosave-key="attentionFact" maxlength="500" placeholder="例如：他三小時沒有回訊息。"></textarea></div>
+        <div class="field"><label for="attentionGuess">我的推測</label><textarea id="attentionGuess" data-autosave-key="attentionGuess" maxlength="500" placeholder="例如：他開始討厭我。"></textarea></div>
+      </div>
+      <label class="option green"><input type="checkbox" data-check-key="attention-fact"><span>我已經分開「真正發生的事」和「腦中的解釋」</span></label>
+
+      <div class="field" style="margin:12px 0"><label for="attentionTime">4. 我的關係時間</label><input id="attentionTime" type="time" data-autosave-key="attentionTime"><div class="value-hint">每天在固定時間回訊息或思考關係，其他時間先回到生活。</div></div>
+      <label class="option green"><input type="checkbox" data-check-key="attention-time"><span>在設定的時間以前，我不需要反覆檢查訊息</span></label>
+
+      <div class="field" style="margin:12px 0"><label for="attentionTask">5. 現在要完成的一個小任務</label><input id="attentionTask" data-autosave-key="attentionTask" maxlength="200" placeholder="例如：專心閱讀論文 25 分鐘。"></div>
+      <label class="option green"><input type="checkbox" data-check-key="attention-task"><span>我先專注這件事 25 分鐘，再決定是否需要處理關係</span></label>
+      <label class="option red"><input type="checkbox" data-check-key="attention-pause"><span><strong>6. 暫停決定：</strong>情緒很高時，我不立刻告白、質問、追問或突然消失</span></label>
+      <div class="value-summary" data-check-progress>0 / 6 已完成</div>
+    </section>
+
     <section class="card">
       <h2>五階段：慢慢建立關係</h2>
       <p class="sub">每一階段都有退出權。只有目前階段大致安全、自在且互相，才需要進到下一步。</p>
@@ -336,13 +361,17 @@ $$(".guide-choice").forEach(b=>b.addEventListener("click",()=>{$$(".guide-choice
 const tabCheckStorageKey="datingTabChecksV1";
 function getTabChecks(){try{return JSON.parse(localStorage.getItem(tabCheckStorageKey)||"{}")}catch{return{}}}
 function updateTabCheckProgress(){
- $("[data-check-group]").forEach(group=>{
+ $$("[data-check-group]").forEach(group=>{
   const boxes=[...group.querySelectorAll("[data-check-key]")],done=boxes.filter(x=>x.checked).length,out=group.querySelector("[data-check-progress]");
   if(out)out.textContent=done+" / "+boxes.length+" 已完成";
  });
 }
+$$("[data-autosave-key]").forEach(field=>{
+ field.value=localStorage.getItem(field.dataset.autosaveKey)||"";
+ field.addEventListener("input",()=>localStorage.setItem(field.dataset.autosaveKey,field.value));
+});
 const savedTabChecks=getTabChecks();
-$("[data-check-key]").forEach(box=>{
+$$("[data-check-key]").forEach(box=>{
  box.checked=!!savedTabChecks[box.dataset.checkKey];
  box.addEventListener("change",()=>{
   const state=getTabChecks();state[box.dataset.checkKey]=box.checked;localStorage.setItem(tabCheckStorageKey,JSON.stringify(state));updateTabCheckProgress();
