@@ -105,7 +105,7 @@
         <div class="questions" id="valueQuestions"></div>
       </section>
 
-      <section class="card form-step" data-step="4" id="relationshipQualitySection">
+      <section class="card form-step" data-step="4" id="relationshipQualitySection" hidden>
         <h2>穩定交往後｜關係品質觀察</h2>
         <p class="sub">根據 Joel et al.（2020）整理的五個關係特定預測因子。這些指標來自已建立關係的伴侶研究，不適合用來測試第一次見面的陌生人；沒有總分或結婚成功率預測。</p>
         <div class="value-tip">只在雙方已建立交往關係、自己願意記錄時填寫。性生活題目可略過，不需提供任何私密細節。</div>
@@ -403,6 +403,7 @@ function renderStage(){
  const n=$("#stage").value,d=stageData[n];$("#stageTitle").textContent=d.title;$("#stagePrompt").textContent=d.prompt;$("#stagePill").textContent="第 "+n+" 次";
  $("#flags").innerHTML=flagGroup("green","🟢 綠旗｜可以繼續認識",d.green)+flagGroup("yellow","🟡 黃旗｜放慢並持續觀察",d.yellow)+flagGroup("red","🔴 紅旗｜不要替對方合理化",d.red);makeFlexible($("#flags"));
 }
+function toggleRelationshipQuality(){const section=$("#relationshipQualitySection");if(section)section.hidden=$("#interactionType").value!=="relationship"}
 function renderQuestions(){
  $("#feelingsQuestions").innerHTML=feelingQuestions.map((q,i)=>'<div class="question"><p>'+(i+1)+'. '+q+'</p><div class="seg">'+[["yes","有"],["unsure","不確定"],["no","目前沒有"]].map(v=>'<input id="feeling'+i+'-'+v[0]+'" type="radio" name="feeling'+i+'" value="'+v[0]+'"><label for="feeling'+i+'-'+v[0]+'">'+v[1]+'</label>').join("")+'</div></div>').join("");
  $("#relationshipQualityQuestions").innerHTML=relationshipQualityAreas.map((v,i)=>'<div class="question"><p>'+v.zh+'（'+v.en+'）</p><div class="sub" style="margin:-5px 0 8px">'+v.q+'</div><div class="value-hint">'+v.hint+'</div><div class="seg">'+[["positive","目前感受正面"],["uncertain","還不確定"],["concern","有些困擾"]].map(o=>'<input id="rq'+i+'-'+o[0]+'" type="radio" name="rq-'+v.key+'" value="'+o[0]+'"><label for="rq'+i+'-'+o[0]+'">'+o[1]+'</label>').join("")+'</div><label class="value-label" for="rq-note-'+v.key+'">觀察紀錄（選填）</label><textarea id="rq-note-'+v.key+'" maxlength="500" placeholder="記錄具體經驗，不需填私密細節"></textarea></div>').join("");
@@ -441,10 +442,11 @@ function showFormStep(n){
  $(".result").classList.toggle("hidden",currentStep<3);window.scrollTo({top:0,behavior:"smooth"});
 }
 function resetForm(){
- $("#checkForm").reset();$("#date").value=new Date().toLocaleDateString("en-CA");$("#stage").value="1";editingId=null;renderStage();renderQuestions();calc();showFormStep(1);
+ $("#checkForm").reset();$("#date").value=new Date().toLocaleDateString("en-CA");$("#stage").value="1";editingId=null;renderStage();renderQuestions();toggleRelationshipQuality();calc();showFormStep(1);
 }
 function toast(t){$("#toast").textContent=t;$("#toast").classList.add("show");setTimeout(()=>$("#toast").classList.remove("show"),1800)}
 $("#stage").addEventListener("change",()=>{renderStage();calc()});
+$("#interactionType").addEventListener("change",toggleRelationshipQuality);
 $("#formProgress").innerHTML=stepNames.map((x,i)=>'<button type="button" class="step-dot" data-go="'+(i+1)+'">'+(i+1)+'<br>'+x+'</button>').join("");
 $("#formProgress").addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(b)showFormStep(+b.dataset.go)});
 $("#nextBtn").addEventListener("click",()=>{if(currentStep===1&&(!$("#person").value.trim()||!$("#date").value)){$("#checkForm").reportValidity();return}showFormStep(currentStep+1)});
@@ -467,7 +469,7 @@ function renderSaved(){
  box.innerHTML=data.map(x=>{const c=classify(x),total=(x.scores||[]).filter(v=>v!==null).length;return '<article class="saved-card"><div class="saved-top"><div><div class="saved-name">'+safe(x.person)+'</div><div class="saved-meta">'+safe(x.date)+'・'+interactionLabel(x)+'・第 '+x.stage+' 次見面・'+total+'/6 題</div></div><span class="badge '+c[0]+'">'+c[1]+'</span></div>'+developmentSummary(x)+valueSummary(x)+(Object.values(x.relationshipQuality||{}).some(v=>v?.answer)?'<p class="saved-note">關係品質：已記錄 '+Object.values(x.relationshipQuality).filter(v=>v?.answer).length+' / 5 項（查看／編輯可檢視細節）</p>':'')+(x.feelingNote?'<p class="saved-note">💗 我的感受：'+safe(x.feelingNote)+'</p>':'')+(x.notes?'<p class="saved-note">'+safe(x.notes)+'</p>':'')+'<div class="mini-actions"><button onclick="editRecord('+x.id+')">查看／編輯</button><button onclick="deleteRecord('+x.id+')">刪除</button></div></article>'}).join("");
 }
 window.editRecord=id=>{
- const x=records().find(v=>v.id===id);if(!x)return;showView("checkView");$("#person").value=x.person;$("#date").value=x.date;$("#interactionType").value=x.interactionType||"possible_date";$("#stage").value=String(x.stage);renderStage();renderQuestions();
+ const x=records().find(v=>v.id===id);if(!x)return;showView("checkView");$("#person").value=x.person;$("#date").value=x.date;$("#interactionType").value=x.interactionType||"possible_date";toggleRelationshipQuality();$("#stage").value=String(x.stage);renderStage();renderQuestions();
  ["green","yellow","red","critical"].forEach(n=>$$('input[name="'+n+'"]').forEach(el=>el.checked=(x[n]||[]).includes(el.value)));
  (x.scores||[]).forEach((v,i)=>{if(v!==null){const el=$("#q"+i+"-"+v);if(el)el.checked=true}});(x.feelings||[]).forEach((v,i)=>{if(v){const el=$("#feeling"+i+"-"+v);if(el)el.checked=true}});$("#feelingNote").value=x.feelingNote||"";relationshipQualityAreas.forEach(v=>{const item=(x.relationshipQuality||{})[v.key]||{};if(item.answer){const input=$('input[name="rq-'+v.key+'"][value="'+item.answer+'"]');if(input)input.checked=true}const note=$("#rq-note-"+v.key);if(note)note.value=item.note||""});(x.development||[]).forEach((v,i)=>{if(v){const el=$("#dev"+i+"-"+v);if(el)el.checked=true}});developmentResult(x.development||[]);valueAreas.forEach((v,i)=>{const status=(x.values||{})[v.key];if(status){const mapped=status==="different"?"negotiable":status,el=$("#v"+i+"-"+mapped);if(el)el.checked=true;const state=$("#valueState-"+v.key);if(state)state.textContent=valueOptions.find(o=>o[0]===mapped)?.[1]||"尚未確認"}const evidence=$("#evidence-"+v.key);if(evidence)evidence.value=(x.valueEvidence||{})[v.key]||""});$("#notes").value=x.notes||"";editingId=id;calc();showFormStep(1);toast("已載入紀錄");
 };
@@ -544,7 +546,7 @@ $$("[data-check-key]").forEach(box=>{
 updateTabCheckProgress();updateAttentionStop();
 $("#relationshipNextStep").value=localStorage.getItem("relationshipNextStep")||"";
 $("#relationshipNextStep").addEventListener("input",e=>localStorage.setItem("relationshipNextStep",e.target.value));
-$("#date").value=new Date().toLocaleDateString("en-CA");renderStage();renderQuestions();setupGuideFolds();setupCheckGroupTools();makeFlexible(document);calc();showFormStep(1);
+$("#date").value=new Date().toLocaleDateString("en-CA");renderStage();renderQuestions();toggleRelationshipQuality();setupGuideFolds();setupCheckGroupTools();makeFlexible(document);calc();showFormStep(1);
 if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js"));
 </script>
 </body>
