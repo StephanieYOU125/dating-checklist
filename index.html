@@ -105,6 +105,14 @@
         <div class="questions" id="valueQuestions"></div>
       </section>
 
+      <section class="card form-step" data-step="4" id="relationshipQualitySection">
+        <h2>穩定交往後｜關係品質觀察</h2>
+        <p class="sub">根據 Joel et al.（2020）整理的五個關係特定預測因子。這些指標來自已建立關係的伴侶研究，不適合用來測試第一次見面的陌生人；沒有總分或結婚成功率預測。</p>
+        <div class="value-tip">只在雙方已建立交往關係、自己願意記錄時填寫。性生活題目可略過，不需提供任何私密細節。</div>
+        <div class="questions" id="relationshipQualityQuestions"></div>
+        <p class="value-hint">參考：Joel et al. (2020), PNAS, DOI: 10.1073/pnas.1917036117。研究顯示的是統計預測關聯，不代表單一因素能造成幸福。</p>
+      </section>
+
       <section class="card form-step" data-step="5">
         <h2>重大紅旗</h2>
         <p class="sub">這些安全問題不能由其他優點或好感抵銷。</p>
@@ -330,6 +338,13 @@ const stageData={
 };
 const qs=["相處時我的身心界線是否受到尊重？","我能否自在地表達意見？","對方是否展現想認識我的具體行為？","對方的說法與行動是否一致？","目前有沒有觀察到雙向投入？","我們是否能尊重地面對意見分歧？"];
 const feelingQuestions=["我對他本人有好奇心嗎？","和他相處時我感到愉快、自在嗎？","我期待再次見到他嗎？","如果他沒有追求我，我仍想認識他嗎？","我對他有浪漫吸引力嗎？","認識更深入後，我仍欣賞他的個性嗎？"];
+const relationshipQualityAreas=[
+ {key:"commitment",en:"Perceived Partner Commitment",zh:"感受到的伴侶承諾",q:"我是否感受到對方願意認真維持並經營這段關係？",hint:"參考雙方對關係的說法與實際投入，不只看承諾字句。"},
+ {key:"appreciation",en:"Appreciation",zh:"感激與珍惜",q:"在這段關係中，我是否感到珍惜與感謝對方？",hint:"留意日常相處是否讓我感受到欣賞、感激及珍惜。"},
+ {key:"sexual",en:"Sexual Satisfaction",zh:"性生活滿意度",q:"我對我們的親密與性生活是否感到滿意？",hint:"只評估自己主觀的滿意程度；尊重界線與同意。可略過，不代表負面。"},
+ {key:"partnerSatisfaction",en:"Perceived Partner Satisfaction",zh:"感受到的伴侶滿意度",q:"我是否感覺對方也滿意並享受這段關係？",hint:"這是我對對方滿意度的感受，不能替代直接和伴侶溝通。"},
+ {key:"conflict",en:"Conflict",zh:"衝突",q:"我們之間的衝突頻率與相處方式，是否讓我感到困擾？",hint:"記錄實際衝突與修復過程，不以『完全不吵架』作為標準。"}
+];
 const developmentAreas=[
  {key:"safe",title:"相處安全舒服",hint:"我能做自己，不必一直猜測、討好或害怕"},
  {key:"mutual",title:"對方也有投入",hint:"他也會主動聯絡、安排見面與關心我"},
@@ -390,12 +405,13 @@ function renderStage(){
 }
 function renderQuestions(){
  $("#feelingsQuestions").innerHTML=feelingQuestions.map((q,i)=>'<div class="question"><p>'+(i+1)+'. '+q+'</p><div class="seg">'+[["yes","有"],["unsure","不確定"],["no","目前沒有"]].map(v=>'<input id="feeling'+i+'-'+v[0]+'" type="radio" name="feeling'+i+'" value="'+v[0]+'"><label for="feeling'+i+'-'+v[0]+'">'+v[1]+'</label>').join("")+'</div></div>').join("");
+ $("#relationshipQualityQuestions").innerHTML=relationshipQualityAreas.map((v,i)=>'<div class="question"><p>'+v.zh+'（'+v.en+'）</p><div class="sub" style="margin:-5px 0 8px">'+v.q+'</div><div class="value-hint">'+v.hint+'</div><div class="seg">'+[["positive","目前感受正面"],["uncertain","還不確定"],["concern","有些困擾"]].map(o=>'<input id="rq'+i+'-'+o[0]+'" type="radio" name="rq-'+v.key+'" value="'+o[0]+'"><label for="rq'+i+'-'+o[0]+'">'+o[1]+'</label>').join("")+'</div><label class="value-label" for="rq-note-'+v.key+'">觀察紀錄（選填）</label><textarea id="rq-note-'+v.key+'" maxlength="500" placeholder="記錄具體經驗，不需填私密細節"></textarea></div>').join("");
  $("#questions").innerHTML=qs.map((q,i)=>'<div class="question"><p>'+(i+1)+'. '+q+'</p><div class="seg">'+[["0","目前沒有"],["1","不確定"],["2","有具體觀察"]].map(v=>'<input id="q'+i+'-'+v[0]+'" type="radio" name="q'+i+'" value="'+v[0]+'"><label for="q'+i+'-'+v[0]+'">'+v[1]+'</label>').join("")+'</div></div>').join("");
  $("#developmentQuestions").innerHTML=developmentAreas.map((v,i)=>'<div class="question"><p>'+v.title+'</p><div class="sub" style="margin:-5px 0 10px">'+v.hint+'</div><div class="seg">'+developmentOptions.map(o=>'<input id="dev'+i+'-'+o[0]+'" type="radio" name="development-'+v.key+'" value="'+o[0]+'"><label for="dev'+i+'-'+o[0]+'">'+o[1]+'</label>').join("")+'</div></div>').join("");
  $("#criticalFlags").innerHTML=critical.map(x=>'<label class="option red"><input type="checkbox" name="critical" value="'+safe(x)+'"><span>'+safe(x)+'</span></label>').join("")+'<p class="value-hint">系統安全項目保留原文，不能用自訂內容覆蓋。</p>';
  const mine=getMyValues();
  $("#valueQuestions").innerHTML=valueAreas.map((v,i)=>'<details class="value-detail"><summary><span><span class="value-title">'+v.title+'</span><div class="value-hint">'+v.hint+'</div></span><span class="value-state" id="valueState-'+v.key+'">尚未確認</span></summary><div class="value-body"><label class="value-label" for="base-'+v.key+'">① 我的核心需求</label><textarea id="base-'+v.key+'" data-base="'+v.key+'" placeholder="我希望怎麼生活？什麼是不能妥協的？">'+safe(mine[v.key]||"")+'</textarea><label class="value-label" for="evidence-'+v.key+'">② 對方的說法與實際行為</label><textarea id="evidence-'+v.key+'" data-evidence="'+v.key+'" placeholder="記錄具體言行，不只寫印象"></textarea><span class="value-label">③ 我們的相容性</span><div class="seg value-seg">'+valueOptions.map(o=>'<input id="v'+i+'-'+o[0]+'" type="radio" name="value-'+v.key+'" value="'+o[0]+'"><label for="v'+i+'-'+o[0]+'">'+o[1]+'</label>').join("")+'</div></div></details>').join("");
- makeFlexible($("#questions"));makeFlexible($("#developmentQuestions"));makeFlexible($("#criticalFlags"));makeFlexible($("#valueQuestions"));
+ makeFlexible($("#questions"));makeFlexible($("#relationshipQualityQuestions"));makeFlexible($("#developmentQuestions"));makeFlexible($("#criticalFlags"));makeFlexible($("#valueQuestions"));
 }
 function selected(name){return $$('input[name="'+name+'"]:checked').map(x=>x.value)}
 function developmentResult(data){
@@ -439,7 +455,7 @@ $("#resetBtn").addEventListener("click",resetForm);
 $("#checkForm").addEventListener("submit",e=>{
  e.preventDefault();const c=calc();
  
- const old=records(),item={id:editingId||Date.now(),person:$("#person").value.trim(),date:$("#date").value,interactionType:$("#interactionType").value,stage:+$("#stage").value,green:selected("green"),yellow:selected("yellow"),red:selected("red"),critical:selected("critical"),scores:qs.map((_,i)=>{const x=$('input[name="q'+i+'"]:checked');return x?+x.value:null}),score:null,feelings:feelingQuestions.map((_,i)=>{const x=$('input[name="feeling'+i+'"]:checked');return x?x.value:null}),feelingNote:$("#feelingNote").value.trim(),development:developmentResult().values,developmentDecision:developmentResult().result.code,values:Object.fromEntries(valueAreas.map(v=>{const el=$('input[name="value-'+v.key+'"]:checked');return[v.key,el?el.value:null]})),valueEvidence:Object.fromEntries(valueAreas.map(v=>[v.key,$("#evidence-"+v.key)?.value.trim()||""])),notes:$("#notes").value.trim(),updatedAt:new Date().toISOString()};
+ const old=records(),item={id:editingId||Date.now(),person:$("#person").value.trim(),date:$("#date").value,interactionType:$("#interactionType").value,stage:+$("#stage").value,green:selected("green"),yellow:selected("yellow"),red:selected("red"),critical:selected("critical"),scores:qs.map((_,i)=>{const x=$('input[name="q'+i+'"]:checked');return x?+x.value:null}),score:null,relationshipQuality:Object.fromEntries(relationshipQualityAreas.map(v=>{const a=$('input[name="rq-'+v.key+'"]:checked');return[v.key,{answer:a?a.value:null,note:$("#rq-note-"+v.key).value.trim()}]})),feelings:feelingQuestions.map((_,i)=>{const x=$('input[name="feeling'+i+'"]:checked');return x?x.value:null}),feelingNote:$("#feelingNote").value.trim(),development:developmentResult().values,developmentDecision:developmentResult().result.code,values:Object.fromEntries(valueAreas.map(v=>{const el=$('input[name="value-'+v.key+'"]:checked');return[v.key,el?el.value:null]})),valueEvidence:Object.fromEntries(valueAreas.map(v=>[v.key,$("#evidence-"+v.key)?.value.trim()||""])),notes:$("#notes").value.trim(),updatedAt:new Date().toISOString()};
  const next=editingId?old.map(x=>x.id===editingId?item:x):[item,...old];saveRecords(next);toast(editingId?"紀錄已更新":"已安全儲存在這台裝置");resetForm();showView("savedView");
 });
 function classify(x){if((x.critical||[]).length)return["red","重大安全警訊"];if((x.red||[]).length)return["red","有警訊"];if(Object.values(x.values||{}).includes("conflict"))return["yellow","核心差異待討論"];return["yellow","持續了解"]}
@@ -448,12 +464,12 @@ function developmentSummary(x){if(!x.development)return"";const d=developmentRes
 function valueSummary(x){const vals=Object.values(x.values||{}).filter(Boolean),count=k=>vals.filter(v=>v===k).length;if(!vals.length)return"";return '<div class="value-summary">價值觀：'+count("aligned")+' 相近・'+(count("negotiable")+count("different"))+' 可協調・'+count("conflict")+' 核心衝突・'+count("unknown")+' 待確認</div>'}
 function renderSaved(){
  const data=records(),box=$("#savedList");if(!data.length){box.innerHTML='<div class="card empty"><div style="font-size:36px">♡</div><h2>還沒有紀錄</h2><p>每次只記下事實與自己的感受，就已經很有價值。</p></div>';return}
- box.innerHTML=data.map(x=>{const c=classify(x),total=(x.scores||[]).filter(v=>v!==null).length;return '<article class="saved-card"><div class="saved-top"><div><div class="saved-name">'+safe(x.person)+'</div><div class="saved-meta">'+safe(x.date)+'・'+interactionLabel(x)+'・第 '+x.stage+' 次見面・'+total+'/6 題</div></div><span class="badge '+c[0]+'">'+c[1]+'</span></div>'+developmentSummary(x)+valueSummary(x)+(x.feelingNote?'<p class="saved-note">💗 我的感受：'+safe(x.feelingNote)+'</p>':'')+(x.notes?'<p class="saved-note">'+safe(x.notes)+'</p>':'')+'<div class="mini-actions"><button onclick="editRecord('+x.id+')">查看／編輯</button><button onclick="deleteRecord('+x.id+')">刪除</button></div></article>'}).join("");
+ box.innerHTML=data.map(x=>{const c=classify(x),total=(x.scores||[]).filter(v=>v!==null).length;return '<article class="saved-card"><div class="saved-top"><div><div class="saved-name">'+safe(x.person)+'</div><div class="saved-meta">'+safe(x.date)+'・'+interactionLabel(x)+'・第 '+x.stage+' 次見面・'+total+'/6 題</div></div><span class="badge '+c[0]+'">'+c[1]+'</span></div>'+developmentSummary(x)+valueSummary(x)+(Object.values(x.relationshipQuality||{}).some(v=>v?.answer)?'<p class="saved-note">關係品質：已記錄 '+Object.values(x.relationshipQuality).filter(v=>v?.answer).length+' / 5 項（查看／編輯可檢視細節）</p>':'')+(x.feelingNote?'<p class="saved-note">💗 我的感受：'+safe(x.feelingNote)+'</p>':'')+(x.notes?'<p class="saved-note">'+safe(x.notes)+'</p>':'')+'<div class="mini-actions"><button onclick="editRecord('+x.id+')">查看／編輯</button><button onclick="deleteRecord('+x.id+')">刪除</button></div></article>'}).join("");
 }
 window.editRecord=id=>{
  const x=records().find(v=>v.id===id);if(!x)return;showView("checkView");$("#person").value=x.person;$("#date").value=x.date;$("#interactionType").value=x.interactionType||"possible_date";$("#stage").value=String(x.stage);renderStage();renderQuestions();
  ["green","yellow","red","critical"].forEach(n=>$$('input[name="'+n+'"]').forEach(el=>el.checked=(x[n]||[]).includes(el.value)));
- (x.scores||[]).forEach((v,i)=>{if(v!==null){const el=$("#q"+i+"-"+v);if(el)el.checked=true}});(x.feelings||[]).forEach((v,i)=>{if(v){const el=$("#feeling"+i+"-"+v);if(el)el.checked=true}});$("#feelingNote").value=x.feelingNote||"";(x.development||[]).forEach((v,i)=>{if(v){const el=$("#dev"+i+"-"+v);if(el)el.checked=true}});developmentResult(x.development||[]);valueAreas.forEach((v,i)=>{const status=(x.values||{})[v.key];if(status){const mapped=status==="different"?"negotiable":status,el=$("#v"+i+"-"+mapped);if(el)el.checked=true;const state=$("#valueState-"+v.key);if(state)state.textContent=valueOptions.find(o=>o[0]===mapped)?.[1]||"尚未確認"}const evidence=$("#evidence-"+v.key);if(evidence)evidence.value=(x.valueEvidence||{})[v.key]||""});$("#notes").value=x.notes||"";editingId=id;calc();showFormStep(1);toast("已載入紀錄");
+ (x.scores||[]).forEach((v,i)=>{if(v!==null){const el=$("#q"+i+"-"+v);if(el)el.checked=true}});(x.feelings||[]).forEach((v,i)=>{if(v){const el=$("#feeling"+i+"-"+v);if(el)el.checked=true}});$("#feelingNote").value=x.feelingNote||"";relationshipQualityAreas.forEach(v=>{const item=(x.relationshipQuality||{})[v.key]||{};if(item.answer){const input=$('input[name="rq-'+v.key+'"][value="'+item.answer+'"]');if(input)input.checked=true}const note=$("#rq-note-"+v.key);if(note)note.value=item.note||""});(x.development||[]).forEach((v,i)=>{if(v){const el=$("#dev"+i+"-"+v);if(el)el.checked=true}});developmentResult(x.development||[]);valueAreas.forEach((v,i)=>{const status=(x.values||{})[v.key];if(status){const mapped=status==="different"?"negotiable":status,el=$("#v"+i+"-"+mapped);if(el)el.checked=true;const state=$("#valueState-"+v.key);if(state)state.textContent=valueOptions.find(o=>o[0]===mapped)?.[1]||"尚未確認"}const evidence=$("#evidence-"+v.key);if(evidence)evidence.value=(x.valueEvidence||{})[v.key]||""});$("#notes").value=x.notes||"";editingId=id;calc();showFormStep(1);toast("已載入紀錄");
 };
 window.deleteRecord=id=>{if(!confirm("確定刪除這筆紀錄嗎？刪除後無法復原。"))return;saveRecords(records().filter(x=>x.id!==id));renderSaved();toast("紀錄已刪除")};
 function setupGuideFolds(){
