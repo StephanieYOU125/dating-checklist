@@ -13,15 +13,27 @@ https://stephanieyou125.github.io/dating-checklist/
 - 可標記初次認識、朋友見面、可能約會、明確約會、曖昧或交往
 - 第一次到第五次深入見面的分階段觀察重點
 - 綠旗、黃旗與紅旗紀錄
-- 六題自我評估與 12 分趨勢提示
+- 六題浪漫感受自我反思，與六題安全及互動觀察分開紀錄
 - 四項進一步發展條件與下一步建議
 - 關係恐懼辨識、五階段發展路徑、溝通句型與每週檢查
 - 六大價值觀面向：忠誠、婚育、金錢、成長、生活地點與界線
-- 重大紅旗獨立警示，不由總分抵銷
+- 重大安全警訊獨立提示，不由其他正面感受抵銷
 - 多位對象與歷次約會紀錄
 - 手機本機儲存，不會把內容上傳到伺服器
 - 支援離線開啟與加入 iPhone 主畫面
 - 無廣告、無追蹤器、無外部套件
+
+## 科學依據與限制
+
+這是一個自我觀察工具，**不是經過心理計量驗證的配對量表**，也不能以分數判斷某個人是否適合結婚。新版刻意移除原本的 12 分適合度門檻，將「我是否喜歡對方」與「我是否觀察到安全、尊重、雙向投入」分開。仍保留早期版本紀錄以便回顧。
+
+參考文獻：
+- Eastwick & Finkel (2008), *Sex Differences in Mate Preferences Revisited*. DOI: 10.1037/0022-3514.94.2.245
+- Finkel et al. (2012), *Online Dating: A Critical Analysis From the Perspective of Psychological Science*. DOI: 10.1177/1529100612436522
+- Eastwick et al. (2014), *The Predictive Validity of Ideal Partner Preferences*. DOI: 10.1037/a0032432
+- Joel et al. (2020), *Machine Learning Uncovers the Most Robust Self-Report Predictors of Relationship Quality*. DOI: 10.1073/pnas.1917036117
+
+這些論文**沒有直接驗證此 App 的題目或操作流程**。使用者的回應應作為反思與具體觀察，不應作為科學診斷、戀愛相容性預測或決策替代。
 
 ## 加入 iPhone 主畫面
 
