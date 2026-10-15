@@ -425,7 +425,7 @@ function showFormStep(n){
  $(".result").classList.toggle("hidden",currentStep<3);window.scrollTo({top:0,behavior:"smooth"});
 }
 function resetForm(){
- $("#checkForm").reset();$("#date").value=new Date().toISOString().slice(0,10);$("#stage").value="1";editingId=null;renderStage();renderQuestions();calc();showFormStep(1);
+ $("#checkForm").reset();$("#date").value=new Date().toLocaleDateString("en-CA");$("#stage").value="1";editingId=null;renderStage();renderQuestions();calc();showFormStep(1);
 }
 function toast(t){$("#toast").textContent=t;$("#toast").classList.add("show");setTimeout(()=>$("#toast").classList.remove("show"),1800)}
 $("#stage").addEventListener("change",()=>{renderStage();calc()});
@@ -528,7 +528,7 @@ $$("[data-check-key]").forEach(box=>{
 updateTabCheckProgress();updateAttentionStop();
 $("#relationshipNextStep").value=localStorage.getItem("relationshipNextStep")||"";
 $("#relationshipNextStep").addEventListener("input",e=>localStorage.setItem("relationshipNextStep",e.target.value));
-$("#date").value=new Date().toISOString().slice(0,10);renderStage();renderQuestions();setupGuideFolds();setupCheckGroupTools();makeFlexible(document);calc();showFormStep(1);
+$("#date").value=new Date().toLocaleDateString("en-CA");renderStage();renderQuestions();setupGuideFolds();setupCheckGroupTools();makeFlexible(document);calc();showFormStep(1);
 if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js"));
 </script>
 </body>
